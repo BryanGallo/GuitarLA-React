@@ -1,8 +1,16 @@
+import { useState, useEffect } from "react";
 import Header from "./components/Header";
 import Guitar from "./components/Guitar";
+import { db } from "./data/db.js";
 import "./App.css";
 
 function App() {
+    const [guitarras, setGuitarras] = useState([]);
+
+    useEffect(() => {
+        setGuitarras(db);
+    }, []);
+
     return (
         <>
             <Header />
@@ -10,7 +18,10 @@ function App() {
                 <h2 className="text-center">Nuestra Colección</h2>
 
                 <div className="row mt-5">
-                    <Guitar />
+                    {guitarras &&
+                        guitarras.map((guitarra) => (
+                            <Guitar key={guitarra.id} guitarra={guitarra} />
+                        ))}
                 </div>
             </main>
 
