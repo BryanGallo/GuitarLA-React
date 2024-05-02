@@ -13,10 +13,20 @@ function App() {
     }, []);
 
     function addtoCart(item) {
-        console.log(item);
-        setCart([...cart, item]);
-        //otra opcion tomando en cuenta ya sabe que hay en el state desde que se lo declara va a estar asociada con el state de cart (aqui prevCart toma el valor de cart )
-        // setCart((prevCart)=>[...prevCart,item])
+        //Validando si la guitarra ya esta agregada
+        const exist = cart.findIndex((c) => c.id === item.id);
+        console.log(exist);
+        if (exist === -1) {
+            item.quantity = 1;
+            setCart([...cart, item]);
+            //otra opcion tomando en cuenta ya sabe que hay en el state desde que se lo declara va a estar asociada con el state de cart (aqui prevCart toma el valor de cart )
+            // setCart((prevCart)=>[...prevCart,item])
+        } else {
+            const updateCart = [...cart];
+            updateCart[exist].quantity++;
+            setCart(updateCart);
+        }
+        console.log(item.quantity);
     }
 
     return (
