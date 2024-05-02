@@ -6,10 +6,18 @@ import "./App.css";
 
 function App() {
     const [guitarras, setGuitarras] = useState([]);
+    const [cart, setCart] = useState([]);
 
     useEffect(() => {
         setGuitarras(db);
     }, []);
+
+    function addtoCart(item) {
+        console.log(item);
+        setCart([...cart, item]);
+        //otra opcion tomando en cuenta ya sabe que hay en el state desde que se lo declara va a estar asociada con el state de cart (aqui prevCart toma el valor de cart )
+        // setCart((prevCart)=>[...prevCart,item])
+    }
 
     return (
         <>
@@ -20,7 +28,11 @@ function App() {
                 <div className="row mt-5">
                     {guitarras &&
                         guitarras.map((guitarra) => (
-                            <Guitar key={guitarra.id} guitarra={guitarra} />
+                            <Guitar
+                                key={guitarra.id}
+                                guitarra={guitarra}
+                                addtoCart={addtoCart}
+                            />
                         ))}
                 </div>
             </main>
