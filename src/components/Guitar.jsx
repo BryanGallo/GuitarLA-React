@@ -15,7 +15,7 @@ const Guitar = ({ guitarra, addtoCart}) => {
                     {name}
                 </h3>
                 <p>{description}</p>
-                <p className="fw-black text-primary fs-3">{price}</p>
+                <p className="fw-black text-primary fs-3">$ {price}</p>
                 <button
                     onClick={() => {
                         addtoCart(guitarra);
