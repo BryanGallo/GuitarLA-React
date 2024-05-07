@@ -8,6 +8,8 @@ function App() {
     const [guitarras, setGuitarras] = useState([]);
     const [cart, setCart] = useState([]);
 
+    const MAX_ITEMS = 5;
+
     useEffect(() => {
         setGuitarras(db);
     }, []);
@@ -31,7 +33,18 @@ function App() {
 
     function removeCart(id) {
         const prevCart = cart.filter((item) => item.id !== id);
-        setCart(prevCart)
+        setCart(prevCart);
+    }
+
+    function increaseQuantity(id) {
+        const updateCart = cart.map((item) => {
+            if (item.id === id && item.quantity < MAX_ITEMS) {
+                const up = { ...item, quantity: item.quantity + 1 };
+                return up;
+            }
+            return item;
+        });
+        setCart(updateCart);
     }
 
     return (
@@ -39,6 +52,7 @@ function App() {
             <Header
                 cart={cart}
                 removeCart={removeCart}
+                increaseQuantity={increaseQuantity}
             />
             <main className="container-xl mt-5">
                 <h2 className="text-center">Nuestra Colección</h2>
