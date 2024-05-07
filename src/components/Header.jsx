@@ -1,17 +1,18 @@
+import { useMemo } from "react";
 const Header = ({ cart }) => {
     console.log(cart);
-    //State Derivado
-    const isEmpty = () => cart.length === 0;
+    //Usando UseMemo y con este hook es para el performance par que no haga render hasta que cambie algo que te paso en el arreglo de dependencias en este caso cart
+    const isEmpty = useMemo(() => cart.length === 0, [cart]);
+    // const isEmpty = () => cart.length === 0;
     const cartTotal = () =>
         //calculando el total del carrito
         cart.reduce((total, item) => total + item.quantity * item.price, 0);
-
     //sin stateDerivado
     // const cartTotal = cart.reduce(
     //     (total, guitar) => total + guitar.price * guitar.quantity,
     //     0
     // );
-    console.log(cartTotal);
+
     return (
         <header className="py-5 header">
             <div className="container-xl">
@@ -34,7 +35,7 @@ const Header = ({ cart }) => {
                             />
 
                             <div id="carrito" className="bg-white p-3">
-                                {isEmpty() ? (
+                                {isEmpty ? (
                                     <p className="text-center">
                                         El carrito esta vacio
                                     </p>
