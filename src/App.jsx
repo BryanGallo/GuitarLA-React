@@ -9,6 +9,7 @@ function App() {
     const [cart, setCart] = useState([]);
 
     const MAX_ITEMS = 5;
+    const MIN_ITEMS = 1;
 
     useEffect(() => {
         setGuitarras(db);
@@ -24,9 +25,11 @@ function App() {
             //otra opcion tomando en cuenta ya sabe que hay en el state desde que se lo declara va a estar asociada con el state de cart (aqui prevCart toma el valor de cart )
             // setCart((prevCart)=>[...prevCart,item])
         } else {
-            const updateCart = [...cart];
-            updateCart[exist].quantity++;
-            setCart(updateCart);
+            if (cart[exist].quantity < MAX_ITEMS) {
+                const updateCart = [...cart];
+                updateCart[exist].quantity++;
+                setCart(updateCart);
+            }
         }
         console.log(item.quantity);
     }
@@ -47,12 +50,27 @@ function App() {
         setCart(updateCart);
     }
 
+    function decreaseQuantity(id) {
+        console.log(id);
+        const updateCart = cart.map((item) => {
+            if (item.id === id && item.quantity > MIN_ITEMS) {
+                return {
+                    ...item,
+                    quantity: item.quantity - 1,
+                };
+            }
+            return item;
+        });
+        setCart(updateCart);
+    }
+
     return (
         <>
             <Header
                 cart={cart}
                 removeCart={removeCart}
                 increaseQuantity={increaseQuantity}
+                decreaseQuantity={decreaseQuantity}
             />
             <main className="container-xl mt-5">
                 <h2 className="text-center">Nuestra Colección</h2>
