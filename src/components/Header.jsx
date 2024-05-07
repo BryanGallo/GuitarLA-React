@@ -1,5 +1,11 @@
 import { useMemo } from "react";
-const Header = ({ cart, removeCart, increaseQuantity, decreaseQuantity }) => {
+const Header = ({
+    cart,
+    removeCart,
+    increaseQuantity,
+    decreaseQuantity,
+    cleanCart,
+}) => {
     console.log(cart);
     //Usando UseMemo y con este hook es para el performance par que no haga render hasta que cambie algo que te paso en el arreglo de dependencias en este caso cart
     const isEmpty = useMemo(() => cart.length === 0, [cart]);
@@ -123,7 +129,7 @@ const Header = ({ cart, removeCart, increaseQuantity, decreaseQuantity }) => {
                                     </>
                                 )}
 
-                                <button className="btn btn-dark w-100 mt-3 p-2">
+                                <button onClick={cleanCart} className="btn btn-dark w-100 mt-3 p-2">
                                     Vaciar Carrito
                                 </button>
                             </div>
