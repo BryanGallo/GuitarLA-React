@@ -29,9 +29,17 @@ function App() {
         console.log(item.quantity);
     }
 
+    function removeCart(id) {
+        const prevCart = cart.filter((item) => item.id !== id);
+        setCart(prevCart)
+    }
+
     return (
         <>
-            <Header cart={cart} />
+            <Header
+                cart={cart}
+                removeCart={removeCart}
+            />
             <main className="container-xl mt-5">
                 <h2 className="text-center">Nuestra Colección</h2>
 
