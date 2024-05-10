@@ -5,8 +5,12 @@ import { db } from "./data/db.js";
 import "./App.css";
 
 function App() {
+    const initialState = () => {
+        const state = localStorage.getItem("cart");
+        return state ? JSON.parse(state) : [];
+    };
     const [guitarras, setGuitarras] = useState([]);
-    const [cart, setCart] = useState([]);
+    const [cart, setCart] = useState(initialState);
 
     const MAX_ITEMS = 5;
     const MIN_ITEMS = 1;
@@ -14,6 +18,13 @@ function App() {
     useEffect(() => {
         setGuitarras(db);
     }, []);
+
+    useEffect(() => {
+        function saveLocalStorage() {
+            localStorage.setItem("cart", JSON.stringify(cart));
+        }
+        saveLocalStorage();
+    }, [cart]);
 
     function addtoCart(item) {
         //Validando si la guitarra ya esta agregada
