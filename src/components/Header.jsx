@@ -5,20 +5,9 @@ const Header = ({
     increaseQuantity,
     decreaseQuantity,
     cleanCart,
+    isEmpty,
+    cartTotal,
 }) => {
-    console.log(cart);
-    //Usando UseMemo y con este hook es para el performance par que no haga render hasta que cambie algo que te paso en el arreglo de dependencias en este caso cart
-    const isEmpty = useMemo(() => cart.length === 0, [cart]);
-    // const isEmpty = () => cart.length === 0;
-    const cartTotal = () =>
-        //calculando el total del carrito
-        cart.reduce((total, item) => total + item.quantity * item.price, 0);
-    //sin stateDerivado
-    // const cartTotal = cart.reduce(
-    //     (total, guitar) => total + guitar.price * guitar.quantity,
-    //     0
-    // );
-
     return (
         <header className="py-5 header">
             <div className="container-xl">
@@ -129,7 +118,10 @@ const Header = ({
                                     </>
                                 )}
 
-                                <button onClick={cleanCart} className="btn btn-dark w-100 mt-3 p-2">
+                                <button
+                                    onClick={cleanCart}
+                                    className="btn btn-dark w-100 mt-3 p-2"
+                                >
                                     Vaciar Carrito
                                 </button>
                             </div>
